@@ -50,6 +50,9 @@ public class SecurityConfig {
     
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // CSRF protection is disabled because we use stateless JWT authentication
+        // JWT tokens in Authorization headers are not vulnerable to CSRF attacks
+        // For production with session-based auth, CSRF should be enabled
         http.csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
