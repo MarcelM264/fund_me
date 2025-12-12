@@ -1,0 +1,36 @@
+<div class="project-list-container">
+  <h1>Active Projects</h1>
+  
+  <div *ngIf="loading" class="loading">Loading projects...</div>
+  
+  <div *ngIf="!loading && projects.length === 0" class="no-projects">
+    <p>No active projects available.</p>
+  </div>
+  
+  <div class="projects-grid" *ngIf="!loading && projects.length > 0">
+    <div class="project-card" *ngFor="let project of projects" (click)="viewProject(project.id)">
+      <div class="project-header">
+        <h3>{{ project.title }}</h3>
+        <span class="status-badge">{{ project.status }}</span>
+      </div>
+      
+      <p class="project-description">{{ project.description }}</p>
+      
+      <div class="funding-info">
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="getFundingPercentage(project)"></div>
+        </div>
+        <div class="funding-stats">
+          <span class="current-funding">${{ project.currentFunding || 0 }}</span>
+          <span class="funding-goal">Goal: ${{ project.fundingGoal }}</span>
+        </div>
+        <p class="percentage">{{ getFundingPercentage(project) | number:'1.0-0' }}% funded</p>
+      </div>
+      
+      <div class="project-footer">
+        <span class="creator">By: {{ project.creator?.username }}</span>
+        <span class="created-date">{{ project.createdAt | date:'shortDate' }}</span>
+      </div>
+    </div>
+  </div>
+</div>
