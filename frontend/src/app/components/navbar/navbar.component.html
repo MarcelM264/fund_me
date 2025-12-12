@@ -1,0 +1,20 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <a routerLink="/" class="logo">FundMe</a>
+    
+    <div class="nav-links">
+      <a routerLink="/projects" routerLinkActive="active">Projects</a>
+      
+      <ng-container *ngIf="isLoggedIn">
+        <a routerLink="/create-project" routerLinkActive="active">Create Project</a>
+        <span class="username">{{ username }}</span>
+        <button class="btn-logout" (click)="logout()">Logout</button>
+      </ng-container>
+      
+      <ng-container *ngIf="!isLoggedIn">
+        <a routerLink="/login" routerLinkActive="active">Login</a>
+        <a routerLink="/signup" routerLinkActive="active" class="btn-signup">Sign Up</a>
+      </ng-container>
+    </div>
+  </div>
+</nav>

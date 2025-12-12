@@ -1,0 +1,78 @@
+<div class="signup-container">
+  <div class="signup-card">
+    <h2>Sign Up for FundMe</h2>
+    <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="userData.username"
+          required
+          minlength="3"
+          #username="ngModel"
+        />
+        <div *ngIf="username.invalid && username.touched" class="error">
+          Username is required (min 3 characters)
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="userData.email"
+          required
+          email
+          #email="ngModel"
+        />
+        <div *ngIf="email.invalid && email.touched" class="error">
+          Valid email is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fullName">Full Name (Optional)</label>
+        <input
+          type="text"
+          id="fullName"
+          name="fullName"
+          [(ngModel)]="userData.fullName"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="userData.password"
+          required
+          minlength="6"
+          #password="ngModel"
+        />
+        <div *ngIf="password.invalid && password.touched" class="error">
+          Password is required (min 6 characters)
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+      </div>
+
+      <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+    </form>
+
+    <p class="login-link">
+      Already have an account? <a routerLink="/login">Login</a>
+    </p>
+  </div>
+</div>

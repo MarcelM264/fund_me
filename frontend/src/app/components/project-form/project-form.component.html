@@ -1,0 +1,68 @@
+<div class="project-form-container">
+  <div class="form-card">
+    <h2>Create New Project</h2>
+    <form (ngSubmit)="onSubmit()" #projectForm="ngForm">
+      <div class="form-group">
+        <label for="title">Project Title</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          [(ngModel)]="projectData.title"
+          required
+          #title="ngModel"
+        />
+        <div *ngIf="title.invalid && title.touched" class="error">
+          Title is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          name="description"
+          [(ngModel)]="projectData.description"
+          required
+          rows="6"
+          #description="ngModel"
+        ></textarea>
+        <div *ngIf="description.invalid && description.touched" class="error">
+          Description is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fundingGoal">Funding Goal ($)</label>
+        <input
+          type="number"
+          id="fundingGoal"
+          name="fundingGoal"
+          [(ngModel)]="projectData.fundingGoal"
+          required
+          min="1"
+          #fundingGoal="ngModel"
+        />
+        <div *ngIf="fundingGoal.invalid && fundingGoal.touched" class="error">
+          Funding goal is required and must be positive
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="deadline">Deadline (Optional)</label>
+        <input
+          type="datetime-local"
+          id="deadline"
+          name="deadline"
+          [(ngModel)]="projectData.deadline"
+        />
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" [disabled]="projectForm.invalid">Create Project</button>
+    </form>
+  </div>
+</div>
