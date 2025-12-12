@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { SignupRequest } from '../../models/user.model';
+import { getErrorMessage, logError } from '../../utils/http-error-handler';
 
 @Component({
   selector: 'app-signup',
@@ -39,8 +40,8 @@ export class SignupComponent {
         }, 2000);
       },
       error: (err) => {
-        this.errorMessage = err.error || 'Registration failed. Please try again.';
-        console.error('Signup error:', err);
+        this.errorMessage = getErrorMessage(err);
+        logError('Signup', err);
       }
     });
   }
